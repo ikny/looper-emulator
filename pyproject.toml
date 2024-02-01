@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "lem-dev"
+version = "0.1.0"
+description = "developer workbook for looper emulator project"
+authors = ["ikny <vojtech.mikula@email.cz>"]
+license = "MIT License"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+sounddevice = "^0.4.6"
+pygame = "^2.5.2"
+numpy = "^1.26.2"
+soundfile = "^0.12.1"
+matplotlib = "^3.8.2"
+
+[tool.poetry.dev-dependencies]
+ipynb = "^0.5.1"
+mypy = "^1.7.1"
+ipykernel = "^6.27.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
