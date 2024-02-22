@@ -1,8 +1,27 @@
-import tkinter as tk
+# types/dev
 from typing import Any, Callable
-
-from lem import Lem
+import logging
+# libs
+import tkinter as tk
+# parts of project
 from main import LemApp
+
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    format="%(levelname)s: %(asctime)s %(name)s: %(message)s", level=logging.DEBUG)
+
+
+class ErrorPopup(tk.Toplevel):
+    """A GUI class representing a popup window for displaying an error.
+    """
+
+    def __init__(self, master: tk.Misc, message: str, **kwargs: Any) -> None:
+        super().__init__(master, **kwargs)
+        # TODO: set maxsize
+        self.title("Error message")
+        self.message = tk.Label(master=self, text=message)
+        self.message.pack(padx=10, pady=10)
 
 
 class BpmPopup(tk.Toplevel):
@@ -36,6 +55,7 @@ class BpmPopup(tk.Toplevel):
         self._confirm = tk.Button(
             master=self, text="Confirm!", command=self.set_bpm)
         self._confirm.pack(side="bottom", padx=5, pady=5)
+        self.bind(sequence="<Return>", func=lambda event: self.set_bpm())
 
     def validate(self, value: str) -> bool:
         """A method evaluating whether the value meets the conditions for suitable BPM (an integer between 1 and 400)
@@ -70,11 +90,10 @@ class AppBar(tk.Frame):
     This button is destroyed afterwards.
     """
 
-    def __init__(self, state: Lem, master: LemApp, **kwargs: Any) -> None:
+    def __init__(self, master: LemApp, **kwargs: Any) -> None:
         """Build a new AppBar.
 
         Args:
-            state (Lem): The main state class, managing all the logic.
             master (LemApp): The parent widget. Must be an instance of Lem class (the top level gui class of this project).
         """
         super().__init__(master, **kwargs)
@@ -106,30 +125,35 @@ class RecordButton(tk.Button):
     """A GUI class representing a two-state button through which users can start or stop recording of tracks.
     """
 
-    def __init__(self, master: tk.Misc, start_recording: Callable[[], None], stop_recording: Callable[[], None], **kwargs: Any) -> None:
+    def __init__(self, master: tk.Misc, on_start_recording: Callable[[], None] = lambda: None,
+                 on_stop_recording: Callable[[], None] = lambda: None, **kwargs: Any) -> None:
         """Build a new RecordButton.
 
         Args:
             master (tk.Misc): The parent widget.
-            start_recording (function): The callback to be called when the state changes to "recording" (on odd pushes).
-            stop_recording (function): The callback to be called when the state changes to "waiting" (on even pushes).
+            on_start_recording (function): The callback to be called when the state changes to "recording" (on odd pushes).
+            on_stop_recording (function): The callback to be called when the state changes to "waiting" (on even pushes).
         """
         super().__init__(master, text="Press to start recording (or press SPACE)", height=2,
                          command=self._clicked, **kwargs)
-        self.start_recording = start_recording
-        self.stop_recording = stop_recording
+        self.master.bind(sequence="<space>",
+                         func=lambda event: self._clicked())
+
+        self.on_start_recording = on_start_recording
+        self.on_stop_recording = on_stop_recording
         self._state = "waiting"
 
     def _clicked(self) -> None:
         """A method to be called when the button is pushed. 
         Based on the current state decides what callback should be called and changes its state.
         """
+        logger.debug("RecordButton clicked!")
         if self._state == "waiting":
-            self.start_recording()
+            self.on_start_recording()
             self._state = "recording"
             self.config(text="Press to stop recording (or press SPACE)")
         else:
-            self.stop_recording()
+            self.on_stop_recording()
             self._state = "waiting"
             self.config(text="Press to start recording (or press SPACE)")
 
@@ -168,7 +192,7 @@ class TrackList(tk.Frame):
         self._scrollable.config(yscrollcommand=self._scroller.set)
 
     def add_track(self) -> None:
-        """Create a new Track instance and call the _update_sizes function, which updates the scrollable region.
+        """Create a new Track instance and call the _update_sizes method, which updates the scrollable region.
         """
         track = Track(id=self._free_id,
                       master=self._track_frame, tracklist=self)
@@ -187,8 +211,7 @@ class TrackList(tk.Frame):
         keys = self._tracks.keys()
         track_indexes = list(keys)
         track_index = track_indexes.index(track_id)
-        # TODO: this is pretty tightly coupled, idk what solution would be cleaner.
-        self.master.lem_state.delete_track(idx=track_index)
+        self.master.delete_track(idx=track_index)
 
         self._tracks.pop(track_id)
         self._update_sizes()
@@ -214,6 +237,7 @@ class Track(tk.Frame):
             master (tk.Frame): The parent widget. 
             tracklist (TrackList): The Tracklist widget, which acts as a manager for the Tracks.
         """
+        # TODO: fill the whole available space
         # add border to the track frame
         super().__init__(master, highlightbackground="#DDD78D", highlightthickness=1, **kwargs)
 
