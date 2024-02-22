@@ -10,15 +10,12 @@ from gui_classes import *
 from lem import Lem
 from constants import METRONOME_SAMPLE_PATH, SAMPLERATE
 from custom_exceptions import InvalidSamplerateError
-from utils import ErrorHandler
+from utils import LemErrorHandler
 
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
     format="%(levelname)s: %(asctime)s %(name)s: %(message)s", level=logging.DEBUG)
-
-# sys.stderr = ErrorHandler(logger=logger) # type: ignore
-sys.stdout = ErrorHandler(logger=logger) # type: ignore
 
 
 class LemApp(tk.Tk):
@@ -38,6 +35,8 @@ class LemApp(tk.Tk):
         super().__init__(screenName, baseName, className, useTk, sync, use)
 
         self.lem_state: Optional[Lem] = None
+        sys.stderr = LemErrorHandler(
+            logger=logger, error_callback=self.show_err)  # type: ignore
 
         # set GUI to darkmode
         self.tk_setPalette(background='#181818', foreground='#DDD78D')

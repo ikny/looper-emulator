@@ -1,5 +1,5 @@
 # types
-from typing import Any
+from typing import Any, Callable
 import numpy.typing as npt
 import numpy as np
 # libs
@@ -137,12 +137,22 @@ def is_in_first_half_of_beat(current_frame: int, len_beat: int) -> bool:
     return False
 
 
-class ErrorHandler():
-    def __init__(self, logger: Logger) -> None:
-        self.logger = logger
+class LemErrorHandler():
+    """This is a custom error handler, made to react to a specific errors. 
+    It can show the user a warning based on the caught error.
+    """
 
-    def write(self, message: int) -> None:
-        self.logger.error(f"forwarded from custom stderr/out: {message}")
+    def __init__(self, logger: Logger, error_callback: Callable[[str], None]) -> None:
+        self.logger = logger
+        self.error_callback = error_callback
+
+    def write(self, message: str) -> None:
+        if "IncompleteRecordedTrackError" in message:
+            self.error_callback("""You got IncompleteRecordedTrackError! Were you smashing
+                                the record button too fast?
+                                
+                                Luckily, this should not cause the looper emulator any problems.""")
+        self.logger.error(message)
 
     def flush(self) -> None:
         ...
