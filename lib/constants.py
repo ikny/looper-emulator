@@ -2,7 +2,7 @@ import numpy as np
 
 SAMPLERATE = 44100  # [samples per second]
 BLOCKSIZE = 100   # [samples]
-CHANNELS = 2
+CHANNELS = 2    # stereo
 LATENCY = 0
 
 DTYPE = np.int16
