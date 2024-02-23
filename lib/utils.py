@@ -90,7 +90,7 @@ class AudioCircularBuffer():
         Returns:
             npt.NDArray: The returned data.
         """
-        return self._data[:self._index]
+        return self._data[:self._index] # type: ignore
 
     def position(self) -> int:
         """Returns the current position of _index.

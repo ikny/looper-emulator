@@ -60,7 +60,7 @@ class Lem():
 
         if len(sample) <= self._len_beat:
             sample = np.concatenate(
-                (sample, np.zeros(shape=(self._len_beat-len(sample), CHANNELS), dtype=DTYPE)))
+                (sample, np.zeros(shape=(self._len_beat-len(sample), CHANNELS), dtype=DTYPE))) # type: ignore
         else:
             sample = sample[:self._len_beat]
 

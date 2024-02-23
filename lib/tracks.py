@@ -48,7 +48,7 @@ class RecordedTrack(Track):
         Args:
             data (npt.NDArray[DTYPE]): The audio data to be appended.
         """
-        self.data = np.concatenate([self.data, data])
+        self.data = np.concatenate([self.data, data]) # type: ignore
 
     def is_complete(self) -> bool:
         """Checks whether all the properties have been set and length of the data is not zero as when initialized.
@@ -105,7 +105,7 @@ class PlayingTrack(Track):
         track_slice: npt.NDArray[DTYPE]
         if end < start:
             track_slice = np.concatenate(
-                (self.data[start:], self.data[:end]))
+                (self.data[start:], self.data[:end])) # type: ignore
         else:
             track_slice = self.data[start:end]
         return track_slice
