@@ -6,7 +6,7 @@ import tkinter as tk
 from soundfile import LibsndfileError
 import sys
 # parts of project
-from gui_classes import *
+from gui_classes import AppBar, ErrorPopup, RecordButton, TrackList
 from lem import Lem
 from constants import METRONOME_SAMPLE_PATH, SAMPLERATE
 from custom_exceptions import InvalidSamplerateError
