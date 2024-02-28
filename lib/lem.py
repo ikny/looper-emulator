@@ -9,10 +9,10 @@ import soundfile as sf
 import threading
 from time import sleep
 # parts of project
-from constants import *
-from tracks import RecordedTrack, PlayingTrack
-from custom_exceptions import IncompleteRecordedTrackError, InvalidSamplerateError
-from utils import Queue, AudioCircularBuffer, UserRecordingEvents, on_beat, is_in_first_half_of_beat
+from .constants import *
+from .tracks import RecordedTrack, PlayingTrack
+from .custom_exceptions import IncompleteRecordedTrackError, InvalidSamplerateError
+from .utils import Queue, AudioCircularBuffer, UserRecordingEvents, on_beat, is_in_first_half_of_beat
 
 
 logger = logging.getLogger(__name__)

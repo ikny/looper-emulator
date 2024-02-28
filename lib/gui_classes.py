@@ -4,7 +4,7 @@ import logging
 # libs
 import tkinter as tk
 # parts of project
-from lem_app import LemApp
+from .abstract_lem_app import AbstractLemApp
 
 
 logger = logging.getLogger(__name__)
@@ -28,14 +28,14 @@ class BpmPopup(tk.Toplevel):
     """A GUI class representing a dialog window. The dialog asks for BPM value and checks its validity. If valid, sets BPM.
     """
 
-    def __init__(self, master: LemApp, **kwargs: Any) -> None:
+    def __init__(self, master: AbstractLemApp, **kwargs: Any) -> None:
         """Build a new BpmPopup.
 
         Args:
-            master (LemApp): The parent widget. Must be an instance of Lem class (the top level gui class of this project).
+            master (AbstractLemApp): The parent widget. Must be an instance of Lem class (the top level gui class of this project).
         """
         super().__init__(master, **kwargs)
-        self.master: LemApp = master
+        self.master: AbstractLemApp = master
 
         self.title("enter BPM")
 
@@ -90,14 +90,14 @@ class AppBar(tk.Frame):
     This button is destroyed afterwards.
     """
 
-    def __init__(self, master: LemApp, **kwargs: Any) -> None:
+    def __init__(self, master: AbstractLemApp, **kwargs: Any) -> None:
         """Build a new AppBar.
 
         Args:
-            master (LemApp): The parent widget. Must be an instance of Lem class (the top level gui class of this project).
+            master (AbstractLemApp): The parent widget. Must be an instance of Lem class (the top level gui class of this project).
         """
         super().__init__(master, **kwargs)
-        self.master: LemApp = master
+        self.master: AbstractLemApp = master
 
         self._bpm_lbl = tk.Label(master=self, text="BPM: ")
         self._bpm_lbl.pack(side="left", padx=5, pady=5)
@@ -162,14 +162,14 @@ class TrackList(tk.Frame):
     """A GUI class representing a scrollable list of recorded tracks.
     """
 
-    def __init__(self, master: LemApp, **kwargs: Any) -> None:
+    def __init__(self, master: AbstractLemApp, **kwargs: Any) -> None:
         """Build a new Tracklist.
 
         Args:
-            master (LemApp): The parent widget. Must be an instance of Lem class (the top level gui class of this project).
+            master (AbstractLemApp): The parent widget. Must be an instance of Lem class (the top level gui class of this project).
         """
         super().__init__(master, **kwargs)
-        self.master: LemApp = master
+        self.master: AbstractLemApp = master
 
         # {track_id: Track}
         self._tracks: dict[int, Track] = {}
