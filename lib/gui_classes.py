@@ -18,7 +18,6 @@ class ErrorPopup(tk.Toplevel):
 
     def __init__(self, master: tk.Misc, message: str, **kwargs: Any) -> None:
         super().__init__(master, **kwargs)
-        # TODO: set maxsize
         self.title("Error message")
         self.message = tk.Label(master=self, text=message)
         self.message.pack(padx=10, pady=10)
@@ -237,7 +236,6 @@ class Track(tk.Frame):
             master (tk.Frame): The parent widget. 
             tracklist (TrackList): The Tracklist widget, which acts as a manager for the Tracks.
         """
-        # TODO: fill the whole available space
         # add border to the track frame
         super().__init__(master, highlightbackground="#DDD78D", highlightthickness=1, **kwargs)
 
