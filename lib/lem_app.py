@@ -6,11 +6,11 @@ import tkinter as tk
 from soundfile import LibsndfileError
 import sys
 # parts of project
-from .abstract_lem_app import AbstractLemApp
-from .gui_classes import AppBar, ErrorPopup, RecordButton, TrackList
-from .lem import Lem
-from .constants import METRONOME_SAMPLE_PATH, SAMPLERATE
-from .custom_exceptions import InvalidSamplerateError
+from lib.abstract_lem_app import AbstractLemApp
+from lib.gui_classes import AppBar, ErrorPopup, RecordButton, TrackList
+from lib.lem import Lem
+from lib.constants import METRONOME_SAMPLE_PATH, SAMPLERATE
+from lib.custom_exceptions import InvalidSamplerateError
 
 
 logger = logging.getLogger(__name__)
