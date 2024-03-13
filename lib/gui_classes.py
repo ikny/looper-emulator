@@ -9,7 +9,7 @@ from lib.abstract_lem_app import AbstractLemApp
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    format="%(levelname)s: %(asctime)s %(name)s: %(message)s", level=logging.DEBUG)
+    format="%(levelname)s: %(asctime)s %(name)s: %(message)s")
 
 
 class ErrorPopup(tk.Toplevel):

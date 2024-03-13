@@ -17,7 +17,7 @@ from lib.utils import Queue, AudioCircularBuffer, UserRecordingEvents, on_beat, 
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    format="%(levelname)s: %(asctime)s %(name)s: %(message)s", level=logging.DEBUG)
+    format="%(levelname)s: %(asctime)s %(name)s: %(message)s")
 
 
 class Lem():
@@ -60,7 +60,7 @@ class Lem():
 
         if len(sample) <= self._len_beat:
             sample = np.concatenate(
-                (sample, np.zeros(shape=(self._len_beat-len(sample), CHANNELS), dtype=DTYPE))) # type: ignore
+                (sample, np.zeros(shape=(self._len_beat-len(sample), CHANNELS), dtype=DTYPE)))  # type: ignore
         else:
             sample = sample[:self._len_beat]
 

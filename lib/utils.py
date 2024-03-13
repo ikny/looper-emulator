@@ -1,10 +1,9 @@
 # types
-from typing import Any, Callable
+from typing import Any
 import numpy.typing as npt
 import numpy as np
 # libs
 from enum import Enum
-from logging import Logger
 
 
 class Queue():
@@ -90,7 +89,7 @@ class AudioCircularBuffer():
         Returns:
             npt.NDArray: The returned data.
         """
-        return self._data[:self._index] # type: ignore
+        return self._data[:self._index]  # type: ignore
 
     def position(self) -> int:
         """Returns the current position of _index.
@@ -135,4 +134,3 @@ def is_in_first_half_of_beat(current_frame: int, len_beat: int) -> bool:
     if position_in_beat <= half_beat:
         return True
     return False
-

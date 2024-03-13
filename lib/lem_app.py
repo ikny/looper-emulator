@@ -15,7 +15,7 @@ from lib.custom_exceptions import InvalidSamplerateError
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    format="%(levelname)s: %(asctime)s %(name)s: %(message)s", level=logging.DEBUG)
+    format="%(levelname)s: %(asctime)s %(name)s: %(message)s")
 
 
 class LemApp(tk.Tk, AbstractLemApp):
