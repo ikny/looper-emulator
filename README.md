@@ -1,5 +1,5 @@
 # looper-emulator
-Looper emulator is a free linux application which should make creating music as easy as looper pedal or loop station.
+Looper emulator is a free linux application which should make creating music as easy as a looper pedal or a loop station.
 
 ## Why?
 I wanted an app which:
