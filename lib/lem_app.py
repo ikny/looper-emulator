@@ -8,13 +8,12 @@ from soundfile import LibsndfileError
 from lib.abstract_lem_app import AbstractLemApp
 from lib.gui_classes import AppBar, ErrorPopup, RecordButton, TrackList
 from lib.lem import Lem
-from lib.constants import METRONOME_SAMPLE_PATH, SAMPLERATE
+from lib.constants import METRONOME_SAMPLE_PATH, SAMPLERATE, LOGGER_FORMAT
 from lib.custom_exceptions import InvalidSamplerateError
 
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(
-    format="%(levelname)s: %(asctime)s %(name)s: %(message)s")
+logging.basicConfig(format=LOGGER_FORMAT)
 
 
 class LemApp(tk.Tk, AbstractLemApp):

@@ -10,7 +10,7 @@ from lib.constants import *
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    format="%(levelname)s: %(asctime)s %(name)s: %(message)s")
+    format=LOGGER_FORMAT)
 
 
 class Track():

@@ -9,3 +9,5 @@ DTYPE = np.int16
 STR_DTYPE = "int16"
 
 METRONOME_SAMPLE_PATH = "lib/samples/metronome.wav"
+
+LOGGER_FORMAT = "%(levelname)s: %(asctime)s %(name)s: %(message)s"

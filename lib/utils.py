@@ -113,9 +113,7 @@ def on_beat(current_frame: int, len_beat: int, frames: int) -> bool:
         bool: True if beat happens, False if it does not.
     """
     position_in_beat = current_frame % len_beat
-    if position_in_beat+frames >= len_beat:
-        return True
-    return False
+    return position_in_beat+frames >= len_beat
 
 
 def is_in_first_half_of_beat(current_frame: int, len_beat: int) -> bool:
@@ -131,6 +129,4 @@ def is_in_first_half_of_beat(current_frame: int, len_beat: int) -> bool:
     """
     half_beat = int(len_beat/2)
     position_in_beat = current_frame % len_beat
-    if position_in_beat <= half_beat:
-        return True
-    return False
+    return position_in_beat <= half_beat

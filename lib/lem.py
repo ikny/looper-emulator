@@ -16,8 +16,7 @@ from lib.utils import Queue, AudioCircularBuffer, UserRecordingEvents, on_beat, 
 
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(
-    format="%(levelname)s: %(asctime)s %(name)s: %(message)s")
+logging.basicConfig(format=LOGGER_FORMAT)
 
 
 class Lem():

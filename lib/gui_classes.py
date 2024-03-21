@@ -5,11 +5,11 @@ import logging
 import tkinter as tk
 # parts of project
 from lib.abstract_lem_app import AbstractLemApp
+from lib.constants import LOGGER_FORMAT
 
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(
-    format="%(levelname)s: %(asctime)s %(name)s: %(message)s")
+logging.basicConfig(format=LOGGER_FORMAT)
 
 
 class ErrorPopup(tk.Toplevel):
@@ -133,13 +133,13 @@ class RecordButton(tk.Button):
             on_start_recording (function): The callback to be called when the state changes to "recording" (on odd pushes).
             on_stop_recording (function): The callback to be called when the state changes to "waiting" (on even pushes).
         """
-        super().__init__(master, text="Press to start recording (or press SPACE)", height=2,
-                         command=self._clicked, **kwargs)
+        super().__init__(master, text="Press to start recording (or press SPACE)",
+                         height=2, command=self._clicked, **kwargs)
         self.master.bind(sequence="<space>",
                          func=lambda event: self._clicked())
 
-        self.on_start_recording = on_start_recording
-        self.on_stop_recording = on_stop_recording
+        self._on_start_recording = on_start_recording
+        self._on_stop_recording = on_stop_recording
         self._state = "waiting"
 
     def _clicked(self) -> None:
@@ -148,11 +148,11 @@ class RecordButton(tk.Button):
         """
         logger.debug("RecordButton clicked!")
         if self._state == "waiting":
-            self.on_start_recording()
+            self._on_start_recording()
             self._state = "recording"
             self.config(text="Press to stop recording (or press SPACE)")
         else:
-            self.on_stop_recording()
+            self._on_stop_recording()
             self._state = "waiting"
             self.config(text="Press to start recording (or press SPACE)")
 

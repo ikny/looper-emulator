@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 
 
 class AbstractLemApp(ABC):
+    """AbstractLemApp is a contract for LemApp class, written so that various GUI widgets 
+    can be given a guarantee (through typing) that their parent has a specific method. """
     @abstractmethod
     def set_bpm(self, bpm: int) -> None:
         ...
